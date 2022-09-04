@@ -12,7 +12,7 @@ def log():
     payload = raw_req_data.get_data(as_text=True) or '(empty payload)'
     print('Received task with payload: {}'.format(payload))
     app.logger.info('json_loads: {}'.format(json.loads(payload)))
-    app.logger.info('dict: {}'.format(dict(payload)))
+    app.logger.info(type(json.loads(payload)))
     return 'Received task with payload: {}'.format(payload)
 
 
