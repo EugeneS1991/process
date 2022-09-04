@@ -12,7 +12,6 @@ def log():
 
     payload = raw_req_data.get_data(as_text=True) or '(empty payload)'
     print('Received task with payload: {}'.format(payload))
-    app.logger.info(raw_req_data.get_json())
     app.logger.info(type(raw_req_data))
     app.logger.info(type(payload))
     app.logger.info('testinger')
