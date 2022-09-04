@@ -15,8 +15,9 @@ def log():
     app.logger.info(raw_req_data.get_json())
     app.logger.info(type(raw_req_data))
     app.logger.info(type(payload))
+    app.logger.info('testinger')
     return 'Received task with payload: {}'.format(payload)
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, threaded=True, debug=False)
+    app.run(host='0.0.0.0', port=8080, threaded=True, debug=True)
