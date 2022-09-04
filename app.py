@@ -12,7 +12,7 @@ def save_request(req_data):
     row_to_insert.append({
         'insert_timestamp': int(time.time_ns() / 1000),
         'request_id': req_data.get('req_data'),
-        'data': req_data
+        'data': json.dumps(req_data)
     })
     return row_to_insert
 
@@ -21,9 +21,11 @@ def save_request(req_data):
 def log():
     req_data = json.loads(request.get_data())
     row_to_insert = save_request(req_data)
-
-    print('Received task with payload: {}'.format(row_to_insert))
+    app.logger.info('test_1')
     app.logger.info(row_to_insert)
+    app.logger.info(req_data)
+    print('Received task with payload: {}'.format(row_to_insert))
+
     return 'Received task with payload: {}'.format(row_to_insert)
 
 
