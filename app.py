@@ -6,14 +6,25 @@ import logging
 app = Flask(__name__)
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
+
+def save_request(req_data):
+    row_to_insert = []
+    row_to_insert.append({
+        'insert_timestamp': int(time.time_ns() / 1000),
+        'request_id': req_data.get('req_data'),
+        'data': req_data
+    })
+    return row_to_insert
+
+
 @app.route('/process',methods=['GET', 'POST'])
 def log():
-    raw_req_data = request
-    payload = raw_req_data.get_data(as_text=True) or '(empty payload)'
-    print('Received task with payload: {}'.format(payload))
-    app.logger.info('json_loads: {}'.format(json.loads(payload)))
-    app.logger.info(type(json.loads(payload)))
-    return 'Received task with payload: {}'.format(payload)
+    req_data = json.loads(request.get_data())
+    row_to_insert = save_request(req_data)
+
+    print('Received task with payload: {}'.format(row_to_insert))
+    app.logger.info(row_to_insert)
+    return 'Received task with payload: {}'.format(row_to_insert)
 
 
 if __name__ == '__main__':
