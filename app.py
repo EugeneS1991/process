@@ -12,11 +12,9 @@ def log():
 
     payload = raw_req_data.get_data(as_text=True) or '(empty payload)'
     print('Received task with payload: {}'.format(payload))
-    app.logger.info(type(raw_req_data))
-    app.logger.info(type(payload))
-    app.logger.info('testinger')
+    app.logger.info(payload)
     return 'Received task with payload: {}'.format(payload)
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, threaded=True, debug=True)
+    app.run(host='0.0.0.0', port=8080, threaded=True, debug=False)
