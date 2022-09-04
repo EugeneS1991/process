@@ -12,8 +12,8 @@ def log():
     payload = raw_req_data.get_data(as_text=True) or '(empty payload)'
     print('Received task with payload: {}'.format(payload))
     app.logger.info('test_1')
-    app.logger.info(json.dumps(payload))
-    return 'Received task with payload: {}'.format(payload)
+    # app.logger.info(json.dumps(payload))
+    return 'Received task with payload: {}'.format('test_1')
 
 
 if __name__ == '__main__':
