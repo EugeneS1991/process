@@ -8,12 +8,13 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 @app.route('/process',methods=['GET', 'POST'])
 def log():
- # add_tets
     raw_req_data = request
 
     payload = raw_req_data.get_data(as_text=True) or '(empty payload)'
     print('Received task with payload: {}'.format(payload))
-    app.logger.info(payload)
+    app.logger.info(raw_req_data.get_json())
+    app.logger.info(type(raw_req_data))
+    app.logger.info(type(payload))
     return 'Received task with payload: {}'.format(payload)
 
 
