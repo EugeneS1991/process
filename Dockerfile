@@ -14,4 +14,4 @@ RUN pip install --trusted-host pypi.python.org -r requirements.txt
 COPY . .
 
 # Run app.py when the container launches
-ENTRYPOINT ENTRYPOINT ["python", "app.py","test_1.py","tasks_handler.py"]
+ENTRYPOINT ["python", "app.py","test_1.py","tasks_handler.py"]
