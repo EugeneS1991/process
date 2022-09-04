@@ -11,7 +11,7 @@ def save_request(req_data):
     row_to_insert = []
     row_to_insert.append({
         'insert_timestamp': int(time.time_ns() / 1000),
-        'request_id': req_data.get('req_data'),
+        'request_id': req_data.get('request_id'),
         'data': json.dumps(req_data)
     })
     return row_to_insert
@@ -21,10 +21,19 @@ def save_request(req_data):
 def log():
     req_data = json.loads(request.get_data())
     row_to_insert = save_request(req_data)
-    app.logger.info('test_1')
     app.logger.info(row_to_insert)
-    app.logger.info(req_data)
     print('Received task with payload: {}'.format(row_to_insert))
+
+    bigquery_client = bigquery.Client()
+    dataset_id = bigquery_client.dataset('cloudRun')
+    table_id = dataset_id.table('cloud_run')
+    errors = bigquery_client.insert_rows_json(table_id, row_to_insert)  # Make an API request.
+    if errors == []:
+        app.logger.info("New rows have been added.")
+        print("New rows have been added.")
+    else:
+        app.logger.info("Encountered errors while inserting rows: {}".format(errors))
+        print("Encountered errors while inserting rows: {}".format(errors))
 
     return 'Received task with payload: {}'.format(row_to_insert)
 
