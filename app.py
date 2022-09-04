@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 @app.route('/process',methods=['GET', 'POST'])
 def log():
-
+ # add_tets
     raw_req_data = request
 
     payload = raw_req_data.get_data(as_text=True) or '(empty payload)'
